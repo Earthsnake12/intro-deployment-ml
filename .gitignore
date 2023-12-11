@@ -4,5 +4,6 @@ entorno/
 *.csv
 *.pkl
 *.png
-*.txt
+report.txt
 __pycache__/
+notebooks/prueba.ipynb
