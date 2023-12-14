@@ -17,6 +17,10 @@ jobs:
         run: |
           pip install dvc[gdrive]
           pip install -r requirements_test.txt
+          pip install --upgrade pyopenssl
+      - name: Lista de dependencias
+        run: |
+          pip list
       - name: Test API
         run: |
           dvc pull model/model.pkl -r traker
