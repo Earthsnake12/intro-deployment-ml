@@ -7,3 +7,6 @@ entorno/
 report.txt
 __pycache__/
 notebooks/prueba.ipynb
+.dvc/clave
+key.json
+
