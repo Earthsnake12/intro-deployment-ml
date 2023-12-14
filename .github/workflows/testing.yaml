@@ -4,7 +4,7 @@ jobs:
   testing-api:
     runs-on: ubuntu-latest
     env:
-      SERVICE_ACCOUNT_KEY: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+      GDRIVE_CREDENTIALS_DATA: ${{ secrets.SERVICE_ACCOUNT_KEY }}
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v3
@@ -19,6 +19,5 @@ jobs:
           pip install -r requirements_test.txt
       - name: Test API
         run: |
-          export GDRIVE_CREDENTIALS_DATA =$(python utilities/setter.py)
           dvc pull model/model.pkl -r myremote
           pytest tests.py
