@@ -19,5 +19,5 @@ jobs:
           pip install -r requirements_test.txt
       - name: Test API
         run: |
-          dvc pull model/model.pkl -r myremote
+          dvc pull model/model.pkl -r traker
           pytest tests.py
