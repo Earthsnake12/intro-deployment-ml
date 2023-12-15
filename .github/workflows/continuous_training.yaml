@@ -47,12 +47,12 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add model/model.pkl.dvc
           git commit -m "Updating model serialization"
+      - name: Push metrics
       - uses: ad-m/github-push-action@master
         with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
             branch: ${{ github.head_ref }}
       - uses: iterative/setup-cml@v1
-      - name: Push metrics
         run: |
           cat report.txt >> report.md 
         # echo"![](./prediction_behavior.png)" >> report.md
