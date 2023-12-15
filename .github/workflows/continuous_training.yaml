@@ -37,7 +37,7 @@ jobs:
         run: |
            dvc repro -f 
            echo "Training Completed"
-      - name: Actualizando Train model
+      - name: Actualizando el dvc del Train model
         run: |
            dvc add model/model.pkl -r traker
            dvc push
