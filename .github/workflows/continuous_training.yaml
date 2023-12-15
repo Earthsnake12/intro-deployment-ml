@@ -1,0 +1,59 @@
+name: Continuous Training
+on:
+  push:
+    branches:
+      - workflow_continuous_training
+  #schedule:
+  #  - cron: '0 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: Why to run this?
+        required: false
+        default: running CT
+jobs:
+  continuous-training:
+    runs-on: ubuntu-latest
+    env:
+      GDRIVE_CREDENTIALS_DATA: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+      REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Creating and activating virtualenv
+        run: |
+           pip3 install virtualenv
+           virtualenv venv
+           source venv/bin/activate
+      - name: Installing dependencies
+        run: |   
+           pip install -r src/requirements.txt
+           pip install --upgrade pyopenssl
+      - name: Carga Train model
+        run: |
+           dvc pull model/model.pkl.dvc -r traker
+           dvc unprotect model/model.pkl
+      - name: Actualizando Train model
+        run: |
+           dvc repro -f 
+           echo "Training Completed"
+      - name: Actualizando Train model
+        run: |
+           dvc add model/model.pkl -r traker
+           dvc push
+      - name: Commit .dvc file changes
+        run: |
+          git config --local user.email "ignacio_m_16@hotmail.com"
+          git config --local user.name "github-actions[bot]"
+          git add model/model.pkl.dvc
+          git commit -m "Updating model serialization"
+      - uses: ad-m/github-push-action@master
+        with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            branch: ${{ github.ref }}
+      - uses: iterative/setup-cml@v1
+      - name: Push metrics
+        run: |
+          cat report.txt >> report.md 
+          cml-publish prediction_behavior.png --md >> report.md
+          cml-send-comment report.md
