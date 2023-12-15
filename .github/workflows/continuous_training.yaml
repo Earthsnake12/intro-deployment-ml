@@ -39,7 +39,7 @@ jobs:
            echo "Training Completed"
       - name: Actualizando el dvc del Train model
         run: |
-           dvc add model/model.pkl -r traker
+           dvc add model/model.pkl
            dvc push
       - name: Commit .dvc file changes
         run: |
