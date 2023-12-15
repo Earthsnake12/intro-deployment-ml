@@ -2,7 +2,7 @@ name: Continuous Training
 on:
   push:
     branches:
-      - workflow_continuous_training
+      - workflow_continuous_training_3
   #schedule:
   #  - cron: '0 */6 * * *'
   workflow_dispatch:
@@ -55,5 +55,5 @@ jobs:
       - name: Push metrics
         run: |
           cat report.txt >> report.md 
-          cml-publish prediction_behavior.png --md >> report.md
-          cml-send-comment report.md
+        # echo"![](./prediction_behavior.png)" >> report.md
+          cml comment create report.md
