@@ -52,7 +52,6 @@ jobs:
             github_token: ${{ secrets.GITHUB_TOKEN }}
             branch: ${{ github.ref }}
       - uses: iterative/setup-cml@v1
-      
       - name: Push metrics
         run: |
           cat report.txt >> report.md 
