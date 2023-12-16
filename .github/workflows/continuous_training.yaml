@@ -20,6 +20,10 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+      - name: Set up Node16
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16'
       - name: Creating and activating virtualenv
         run: |
            pip3 install virtualenv
