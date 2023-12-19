@@ -1,0 +1,46 @@
+name: Continuous Integration/Continuous Deployment
+on: 
+  push:
+     branches:
+      -workflow_CI-CD
+  #    - main 
+  #workflow_run:
+  #  workflows: ["Continuous Training"]
+  #  branches: [main]
+  #  types:
+  #    - completed
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: Why to run this?
+        required: false
+        default: running CI/CD
+jobs:
+  ci_cd:
+    runs-on: ubuntu-latest
+    env:
+      REGISTRY_NAME: ${{ secrets.REGISTRY_NAME }} #seria servidor/nombreProyecto/nombreDeCloud pero es mas para darle orden
+    #  REGION: ${{ secrets.REGION }} region del servidor
+    #  PROJECT_ID: ${{ secrets.PROJECT_ID }} el ID del cloud
+    #  SERVICE_NAME: ${{ secrets.SERVICE_NAME }}nombre del servicio del colud
+      GDRIVE_CREDENTIALS_DATA: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Set environment and bring the model
+        run: |
+          pip3 install virtualenv
+          virtualenv venv
+          source venv/bin/activate
+      - name: Set environment and bring the model
+        run: | 
+          pip install dvc[gdrive]
+          dvc pull model/model.pkl.dvc -r 
+      - name: Build and Push
+        run: |
+          docker build . -t prueba/prueba:$GITHUB_SHA
+      #    gcloud auth configure-docker -q
+      #    sudo -u $USER docker push $REGISTRY_NAME:$GITHUB_SHA
+      #- name: Deploy to Cloud Run
+      #  run: |
+      #    gcloud run services update $SERVICE_NAME --region=$REGION --image=$REGISTRY_NAME:$GITHUB_SHA
