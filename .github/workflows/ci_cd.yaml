@@ -35,6 +35,7 @@ jobs:
       - name: Cargando el modelo
         run: | 
           pip install dvc[gdrive]
+          pip install --upgrade pyopenssl
           dvc pull model/model.pkl.dvc -r traker
       - name: Build and Push
         run: |
