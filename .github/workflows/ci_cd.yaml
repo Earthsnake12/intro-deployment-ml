@@ -1,8 +1,8 @@
 name: Continuous Integration/Continuous Deployment
 on: 
   push:
-     branches:
-      -workflow_CI-CD
+    branches:
+      - workflow_CI-CD
   #    - main 
   #workflow_run:
   #  workflows: ["Continuous Training"]
