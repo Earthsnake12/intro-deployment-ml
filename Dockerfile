@@ -2,9 +2,9 @@ FROM python:3.11.3
 
 WORKDIR /app
 
-COPY api/requirements.txt .
+COPY api/requirement.txt .
 
-RUN pip install -U pip && pip install -r requirements.txt
+RUN pip install -U pip && pip install -r requirement.txt
 
 COPY api/ ./api
 
