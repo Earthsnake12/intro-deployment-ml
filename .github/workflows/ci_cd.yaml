@@ -24,6 +24,7 @@ jobs:
     #  PROJECT_ID: ${{ secrets.PROJECT_ID }} el ID del cloud
     #  SERVICE_NAME: ${{ secrets.SERVICE_NAME }}nombre del servicio del colud
       GDRIVE_CREDENTIALS_DATA: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+      GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
@@ -40,6 +41,9 @@ jobs:
       - name: Build and Push
         run: |
           docker build . -t ghcr.io/earthsnake12/prueba:last
+      - name: Docker login
+        run: |
+          echo $GHCR_TOKEN | docker login ghcr.io -u earthsnake12 --password-stdin
       - name: Docker push
         run: |
           docker push ghcr.io/earthsnake12/prueba:last
@@ -50,3 +54,9 @@ jobs:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
       - name: Deploy to Koyeb
         run: koyeb service redeploy app_name/service_name
+
+      #    gcloud auth configure-docker -q
+      #    sudo -u $USER docker push $REGISTRY_NAME:$GITHUB_SHA
+      #   - name: Deploy to Cloud Run
+      #     run: |
+      #    gcloud run services update $SERVICE_NAME --region=$REGION --image=$REGISTRY_NAME:$GITHUB_SHA
