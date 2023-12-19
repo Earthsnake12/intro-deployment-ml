@@ -39,10 +39,10 @@ jobs:
           dvc pull model/model.pkl.dvc -r traker
       - name: Build and Push
         run: |
-          docker build . -t git/deployml:last
+          docker build . -t ghcr.io/Earthsnake12/Prueba:Last
       - name: Docker push
         run: |
-          docker push git/deployml:last
+          docker push ghcr.io/Earthsnake12/Prueba:Last
       - name: Install and configure the Koyeb CLI
         uses: koyeb-community/install-koyeb-cli@v2
         with:
