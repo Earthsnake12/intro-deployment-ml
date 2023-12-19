@@ -32,10 +32,10 @@ jobs:
           pip3 install virtualenv
           virtualenv venv
           source venv/bin/activate
-      - name: Set environment and bring the model
+      - name: Cargando el modelo
         run: | 
           pip install dvc[gdrive]
-          dvc pull model/model.pkl.dvc -r 
+          dvc pull model/model.pkl.dvc -r traker
       - name: Build and Push
         run: |
           docker build . -t prueba/prueba:$GITHUB_SHA
