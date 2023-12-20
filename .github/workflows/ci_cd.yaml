@@ -61,6 +61,7 @@ jobs:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
       
       - name: Deploy to Koyeb
-        run: koyeb service redeploy ignaciomilesi/prueba-ci-cd:latest
+        run: koyeb service redeploy prueba-ci-cd/prueba-ci-cd
+        # koyeb service redeploy app_name/service_name
 
      

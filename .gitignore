@@ -1,5 +1,6 @@
 notebooks/.ipynb_checkpoints/
 entorno/
+env/
 *.json
 *.csv
 *.pkl
