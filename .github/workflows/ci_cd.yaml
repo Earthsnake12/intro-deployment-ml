@@ -56,7 +56,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ignaciomilesi/pruebaCICD:latest
+          tags: ignaciomilesi/prueba-ci-cd:latest
       
       #- name: Docker push
       #  run: |
