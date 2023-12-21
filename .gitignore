@@ -1,0 +1,13 @@
+notebooks/.ipynb_checkpoints/
+entorno/
+env/
+*.json
+*.csv
+*.pkl
+*.png
+report.txt
+__pycache__/
+notebooks/prueba.ipynb
+.dvc/clave
+key.json
+.pytest_cache/
